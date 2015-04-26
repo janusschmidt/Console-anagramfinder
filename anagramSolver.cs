@@ -26,7 +26,7 @@ namespace anagramfinderConsole
             lapTimer.Start();
 
             string[] dict = File.ReadAllLines("../../wordlist.txt");
-            lapTimer.Lap("File read in: {0} ms");
+            var lap0 = lapTimer.Lap("File read in: {0} ms");
             Manipulator.LavAlfabetiseretAnagramListe(dict, Allowedchars);
             string[] keys = Manipulator.GetAlfabetisedWords;
             var lap1 = lapTimer.Lap("Time to compute alfabetized dictionary: {0} ms");
@@ -36,7 +36,7 @@ namespace anagramfinderConsole
             indexes.AsParallel().ForAll(i => GetAnagramsIteration(i, keys, 3, new List<string>(), Allowedchars, 0));
             //GetAnagramsLoop(0, keys, 3, new List<string>(), Allowedchars, 0);
 
-            lapTimer.AppendFormat("Time to compute ALL {0} anagrams: {1} ms", Anagrammer.Count(), lapTimer.ElapsedMilliseconds - lap1);
+            lapTimer.AppendFormat("Time to compute ALL {0} anagrams: {1} ms", Anagrammer.Count(), lapTimer.ElapsedMilliseconds - (lap1 + lap0));
             lapTimer.AppendLine();
 
             lapTimer.Total("Total time: {0} ms");
