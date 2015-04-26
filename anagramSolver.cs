@@ -2,8 +2,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Findkaninen;
-using Findkaninen.Containers;
+using anagramfinderConsole.Containers;
 
 namespace anagramfinderConsole
 {

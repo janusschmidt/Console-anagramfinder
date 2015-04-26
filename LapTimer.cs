@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Findkaninen
+namespace anagramfinderConsole
 {
     public class LapTimer
     {

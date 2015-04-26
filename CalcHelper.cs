@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Findkaninen
+namespace anagramfinderConsole
 {
     public class CalcHelper
     {

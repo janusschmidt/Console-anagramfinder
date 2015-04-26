@@ -1,4 +1,4 @@
-﻿namespace Findkaninen.Containers
+﻿namespace anagramfinderConsole.Containers
 {
     public class Anagram
     {

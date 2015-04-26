@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Findkaninen
+namespace anagramfinderConsole
 {
     
     public class AnagramManipulator 
