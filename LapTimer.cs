@@ -34,15 +34,7 @@ namespace anagramfinderConsole
         {
             var laptime = timer.ElapsedMilliseconds - lastLapTimeMilliseconds;
             Console.WriteLine(commentFormat, laptime);
-            lastLapTimeMilliseconds += timer.ElapsedMilliseconds;
-            return laptime;
-        }
-
-        public long Lap()
-        {
-            var laptime = timer.ElapsedMilliseconds - lastLapTimeMilliseconds;
-            Console.WriteLine(laptime.ToString(CultureInfo.InvariantCulture));
-            lastLapTimeMilliseconds += timer.ElapsedMilliseconds;
+            lastLapTimeMilliseconds = timer.ElapsedMilliseconds;
             return laptime;
         }
 

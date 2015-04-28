@@ -1,36 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace anagramfinderConsole
 {
-    
     public class AnagramManipulator 
     {
-        readonly Dictionary<string, List<string>> alfabetiseretAnagramListe = new Dictionary<string, List<string>>();
+        readonly ConcurrentDictionary<string, List<string>> alfabetiseretAnagramListe = new ConcurrentDictionary<string, List<string>>();
 
         public string[] GetAlfabetisedWords
         {
-            get { return alfabetiseretAnagramListe.Keys.ToArray(); }
+            get { return alfabetiseretAnagramListe.Keys.OrderByDescending(k=>k.Length).ToArray(); }
         }
 
-        public void LavAlfabetiseretAnagramListe(IEnumerable<string> wordlist, char[] allowedchars)
+        public void LavAlfabetiseretAnagramListe(string[] wordlist, char[] allowedchars)
         {
             var calc = new CalcHelper();
-            foreach (var ord in wordlist)
+            alfabetiseretAnagramListe.TryAdd("a", new List<string> { "a" });
+            alfabetiseretAnagramListe.TryAdd("i", new List<string> { "i" });
+            var indexes = Enumerable.Range(0, wordlist.Length);
+            indexes.AsParallel().ForAll(i =>
             {
-                if (calc.CharsOk(ord, allowedchars) == null) continue;
-                var alfabetiseretOrd =
-                    new string(ord.ToCharArray().Where(c => c != '\'' && c != ' ').OrderBy(c => c).ToArray());
-                if (alfabetiseretAnagramListe.ContainsKey(alfabetiseretOrd))
+                var ord = wordlist[i];
+                if (calc.CharsOk(ord, allowedchars) != null && ord.Length > 1)
                 {
-                    if (!alfabetiseretAnagramListe[alfabetiseretOrd].Contains(ord))
-                        alfabetiseretAnagramListe[alfabetiseretOrd].Add(ord);
+                    var alfabetiseretOrd = new string(ord.ToLower().ToCharArray().OrderBy(c => c).ToArray());
+
+                    if (!alfabetiseretAnagramListe.TryAdd(alfabetiseretOrd, new List<string> {ord}))
+                    {
+                        if (!alfabetiseretAnagramListe[alfabetiseretOrd].Contains(ord))
+                            alfabetiseretAnagramListe[alfabetiseretOrd].Add(ord);
+                    }
                 }
-                else
-                {
-                    alfabetiseretAnagramListe.Add(alfabetiseretOrd, new List<string> { ord });
-                }
-            }
+            });
         }
 
         public IEnumerable<IEnumerable<string>> ConvertAlfabetizedAnagramToRealAnagrams(IEnumerable<string> anagramIn)

@@ -6,22 +6,31 @@ namespace anagramfinderConsole
     {
         static void Main()
         {
-            for (var i = 1; i <= 10; i++)
+            long totalMilliSeconds = 0;
+            const int itterations = 10;
+            for (var i = 1; i <= itterations; i++)
             {
                 Console.WriteLine("ITERATION {0}", i);
-                Compute();
+                totalMilliSeconds += Compute();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
             }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Time to compute {0} iterations: {1}ms", itterations, totalMilliSeconds);
+            Console.WriteLine("Avarage time to compute all anagrams: {0} ms", totalMilliSeconds * 1m / itterations);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Press key to close");
             Console.ReadKey();
         }
 
-        private static void Compute()
+        private static long Compute()
         {
             var anagramSolver = new AnagramSolver("poultry outwits ants");
-            anagramSolver.Start();
+            return anagramSolver.Start();
         }
     }
 }
