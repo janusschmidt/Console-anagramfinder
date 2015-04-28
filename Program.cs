@@ -8,6 +8,10 @@ namespace anagramfinderConsole
         {
             long totalMilliSeconds = 0;
             const int itterations = 10;
+
+            //First iteration is slow. So spinup.
+            Compute();
+
             for (var i = 1; i <= itterations; i++)
             {
                 Console.WriteLine("ITERATION {0}", i);
@@ -19,7 +23,7 @@ namespace anagramfinderConsole
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Time to compute {0} iterations: {1}ms", itterations, totalMilliSeconds);
-            Console.WriteLine("Avarage time to compute all anagrams: {0} ms", totalMilliSeconds * 1m / itterations);
+            Console.WriteLine("Average time to compute all anagrams: {0} ms", totalMilliSeconds * 1m / itterations);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             Console.WriteLine();
