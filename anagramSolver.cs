@@ -10,6 +10,8 @@ namespace anagramfinderConsole
     {
         //readonly ConcurrentStack<Anagram> anagrammer = new ConcurrentStack<Anagram>();
         int anagramCounter;
+        public long TotalTimeToFindTheRightAnagram;
+        public long TotalTimeToComputeAllAnagrams;
         readonly int noOfCharsInAnagram;
         readonly char[] allowedchars;
         readonly AnagramManipulator manipulator = new AnagramManipulator();
@@ -18,11 +20,12 @@ namespace anagramfinderConsole
         
         public AnagramSolver(string phrase)
         {
+            TotalTimeToFindTheRightAnagram = 0;
             allowedchars = phrase.Replace(" ", string.Empty).ToCharArray();
             noOfCharsInAnagram = allowedchars.Length;
         }
 
-        public long Start()
+        public void Start()
         {
             lapTimer.Start();
 
@@ -38,7 +41,7 @@ namespace anagramfinderConsole
             lapTimer.AppendLine();
 
             lapTimer.Total("Total time: {0} ms");
-            return lapTimer.ElapsedMilliseconds;
+            TotalTimeToComputeAllAnagrams = lapTimer.ElapsedMilliseconds;
         }
 
         void GetAnagrams3Foreach(string[] dictKeys)
@@ -125,6 +128,7 @@ namespace anagramfinderConsole
             {
                 if (anagram.Md5 == "4624d200580677270a54ccff86b9610e")
                 {
+                    TotalTimeToFindTheRightAnagram = lapTimer.ElapsedMilliseconds;
                     lapTimer.Lap("Time to find anagram \"" + anagram.Text + "\": {0} ms");
                     lapTimer.AppendFormat("Total time to find anagram \"{0}\": {1} ms", anagram.Text, lapTimer.ElapsedMilliseconds);
                     lapTimer.AppendLine();
