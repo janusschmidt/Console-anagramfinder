@@ -80,7 +80,7 @@ namespace anagramfinderConsole
 
                     if (level2CurrentKeyLength == noOfCharsInAnagram)
                     {
-                        AnagramFound(new List<string> {level3Ord, level2Ord});
+                        AnagramFound(new List<string> { level3Ord, level2Ord });
                         continue;
                     }
 

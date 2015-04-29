@@ -39,11 +39,6 @@ namespace anagramfinderConsole
             int noOfRemovedOkChars = 0;
             foreach (var c in charsToCheck)
             {
-                //if (c == '\'')
-                //{
-                //    continue;
-                //}
-
                 var charMatchInOkChars = false;
                 for (var j = 0; j < okchars.Length; j++)
                 {
@@ -73,34 +68,5 @@ namespace anagramfinderConsole
             }
             return okcharsOut;
         }
-
-        //public List<char> CharsOk(char[] charsToCheck, List<char> okchars)
-        //{
-        //    var okcharstmp = okchars.ToList();
-
-        //    if (charsToCheck.Length == 0)
-        //    {
-        //        return null;
-        //    }
-
-        //    foreach (var c in charsToCheck)
-        //    {
-        //        if (c == '\'')
-        //        {
-        //            continue;
-        //        }
-
-        //        if (okcharstmp.Contains(c))
-        //        {
-        //            okcharstmp.Remove(c);
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-        //    }
-
-        //    return okcharstmp;
-        //}
     }
 }
